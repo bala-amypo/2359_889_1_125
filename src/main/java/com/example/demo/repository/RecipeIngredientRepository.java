@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -13,6 +12,6 @@ public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredie
     List<RecipeIngredient> findByMenuItemId(Long menuItemId);
     boolean existsByMenuItemId(Long menuItemId);
     
-    @Query("SELECT COALESCE(SUM(ri.quantityRequired), 0.0) FROM RecipeIngredient ri WHERE ri.ingredient.id = :ingredientId")
+    @Query("SELECT COALESCE(SUM(ri.quantity), 0.0) FROM RecipeIngredient ri WHERE ri.ingredient.id = :ingredientId")
     Double getTotalQuantityByIngredientId(@Param("ingredientId") Long ingredientId);
 }
